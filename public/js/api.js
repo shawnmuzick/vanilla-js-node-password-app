@@ -1,5 +1,5 @@
-export const API = {
-    user_login: async (body) => {
+const user = {
+    login: async (body) => {
         let arr = await fetch("/api/login", {
             method: "POST",
             headers: {
@@ -13,16 +13,28 @@ export const API = {
                 return data;
             })
             .catch((err) => console.log(err));
-        console.log(arr);
         return arr;
     },
-    record_create: () => {
+    logout: () => {
+        fetch("/api/logout")
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+    },
+};
+
+const record = {
+    create: () => {
         fetch("/api/create")
             .then((res) => res.json())
             .then((data) => console.log(data))
             .catch((err) => console.log(err));
     },
-    record_read: () => {},
-    record_update: () => {},
-    record_delete: () => {},
+    read: () => {},
+    update: () => {},
+    delete: () => {},
+};
+
+export const API = {
+    user,
+    record,
 };
