@@ -91,6 +91,9 @@ modal_btn_submit.addEventListener("click", (e) => {
     button_log_out.style.display = "";
     site_title.innerHTML = `${username}'s password storage`;
 });
+modal_new_entry_btn_submit.addEventListener("click", () => {
+    e.preventDefault();
+});
 button_new_entry.addEventListener("click", () => {
     modal_new_entry.showModal();
 });

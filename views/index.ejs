@@ -40,7 +40,7 @@
                     <div class="item-key">
                         Log In
                     </div>
-                    <div class="item-value">
+                    <div class="item-value modal-btn-close-container">
                         <button id="modal-btn-close">x</button>
                     </div>
                 </div>
@@ -69,7 +69,9 @@
                             />
                         </div>
                     </div>
-                    <button type="submit" id="modal-login-btn-submit">Submit</button>
+                    <div class="row btn-submit-container">
+                        <button type="submit" id="modal-login-btn-submit">Submit</button>
+                    </div>
                     <p>Or <a href="/register">Register a new account</a></p>
                 </form>
             </div>
@@ -78,17 +80,40 @@
             <div class="modal-head">
                 <div class="row">
                     <div class="item-key">
-                        Log In
+                        Add a new entry
                     </div>
-                    <div class="item-value">
+                    <div class="item-value modal-btn-close-container">
                         <button id="modal-new-entry-btn-close">x</button>
                     </div>
                 </div>
             </div>
             <div class="modal-body">
                 <form action="/api/login" method="POST">
-                    <button type="submit" id="modal-new-entry-btn-submit">Submit</button>
-                    <p>Or <a href="/register">Register a new account</a></p>
+                    <div class="row">
+                        <div class="item-key">Item Label:</div>
+                        <div class="item-value">
+                            <input
+                                type="text"
+                                name="username"
+                                id="modal-new-entry-label"
+                                placeholder="Username"
+                            />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="item-key">Password:</div>
+                        <div class="item-value">
+                            <input
+                                type="text"
+                                name="password"
+                                id="modal-new-entry-password"
+                                placeholder="Password"
+                            />
+                        </div>
+                    </div>
+                    <div class="row btn-submit-container">
+                        <button type="submit" id="modal-new-entry-btn-submit">Submit</button>
+                    </div>
                 </form>
             </div>
         </dialog>
