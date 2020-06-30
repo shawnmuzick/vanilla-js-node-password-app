@@ -21,11 +21,9 @@ nav {
     padding: 10px;
 }
 .container {
-    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: solid 1px black;
 }
 .table-head,
 .row {
@@ -38,6 +36,8 @@ nav {
     text-align: center;
 }
 dialog {
+    background-color: #202124;
+    color: white;
     text-align: center;
     border: none;
     padding: 2rem;
@@ -54,11 +54,10 @@ dialog::backdrop {
     background: rgba(92, 91, 91, 0.719);
 }
 
-dialog .actions {
-    display: flex;
-    justify-content: space-around;
-}
 .App {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
     text-align: center;
     min-height: 100vh;
     max-height: 100vh;
@@ -85,7 +84,32 @@ main {
     box-sizing: border-box;
     display: flex;
     justify-content: center;
-  }
+    flex-grow: 2;
+}
+.add-new-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    justify-content: flex-end;
+}
+.add-new-container:focus {
+    border: 0px;
+}
+.add-new-btn {
+    width: 50px;
+    height: 50px;
+    color: white;
+    border: solid 1px #285dfd;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    background-color: #285dfd;
+}
+.add-new-btn:focus,
+.add-new-btn:hover {
+    outline: none;
+    border: solid 1px white;
+    border-radius: 50%;
+}
 form {
     display: flex;
     flex-wrap: wrap;
@@ -101,26 +125,14 @@ form {
     text-align: left;
     width: 100%;
 }
-.formGroup {
-    display: flex;
-    flex-direction: row;
-    overflow-wrap: break-word;
-    align-items: center;
-    width: 50vw;
-}
-.formGroup label {
-    width: 200px;
-}
-.formGroup input,
-.formGroup select {
-    width: 100%;
+
+.row input {
     padding: 5px;
     margin: 5px;
+    font-size: 1rem;
 }
 form input:focus,
-form input:active,
-form select:focus,
-form select:active {
+form input:active {
     color: black !important;
 }
 

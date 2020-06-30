@@ -8,13 +8,17 @@ const search_box = document.getElementById("search-box");
 const table_body = document.getElementById("table-body");
 const button_log_in = document.getElementById("log-in");
 const button_log_out = document.getElementById("log-out");
+const button_new_entry = document.getElementById("button-new-entry");
 
-const modal_window = document.getElementById("modal");
+const modal_window = document.getElementById("modal-login");
 const modal_btn_close = document.getElementById("modal-btn-close");
-const modal_btn_submit = document.getElementById("modal-btn-submit");
+const modal_btn_submit = document.getElementById("modal-login-btn-submit");
 const modal_input_username = document.getElementById("modal-input-username");
 const modal_input_password = document.getElementById("modal-input-password");
 
+const modal_new_entry = document.getElementById("modal-new-entry");
+const modal_new_entry_btn_submit = document.getElementById("modal-new-entry-btn-submit");
+const modal_new_entry_btn_close = document.getElementById("modal-new-entry-btn-close");
 let username = "";
 
 const filter_records = (query, data) => {
@@ -86,4 +90,10 @@ modal_btn_submit.addEventListener("click", (e) => {
     button_log_in.style.display = "none";
     button_log_out.style.display = "";
     site_title.innerHTML = `${username}'s password storage`;
+});
+button_new_entry.addEventListener("click", () => {
+    modal_new_entry.showModal();
+});
+modal_new_entry_btn_close.addEventListener("click", () => {
+    modal_new_entry.close();
 });

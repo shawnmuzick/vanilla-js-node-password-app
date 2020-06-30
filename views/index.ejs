@@ -31,7 +31,10 @@
                 <div class="table-body" id="table-body"></div>
             </div>
         </main>
-        <dialog id="modal">
+        <div class="add-new-container">
+            <button id="button-new-entry" class="add-new-btn">+</button>
+        </div>
+        <dialog id="modal-login">
             <div class="modal-head">
                 <div class="row">
                     <div class="item-key">
@@ -66,7 +69,25 @@
                             />
                         </div>
                     </div>
-                    <button type="submit" id="modal-btn-submit">Submit</button>
+                    <button type="submit" id="modal-login-btn-submit">Submit</button>
+                    <p>Or <a href="/register">Register a new account</a></p>
+                </form>
+            </div>
+        </dialog>
+        <dialog id="modal-new-entry">
+            <div class="modal-head">
+                <div class="row">
+                    <div class="item-key">
+                        Log In
+                    </div>
+                    <div class="item-value">
+                        <button id="modal-new-entry-btn-close">x</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form action="/api/login" method="POST">
+                    <button type="submit" id="modal-new-entry-btn-submit">Submit</button>
                     <p>Or <a href="/register">Register a new account</a></p>
                 </form>
             </div>
