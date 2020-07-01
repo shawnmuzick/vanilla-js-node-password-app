@@ -4,9 +4,26 @@ const saltRounds = 10;
 
 const record = {
     create: (req, res) => {
-        console.log("hello from api controller");
-        const message = { message: "hello api response" };
-        res.send(message);
+        const {label, password} = req.body;
+        const entry = {}
+        entry[label] = password;
+        const user = req.user;
+        const error = { message: "You must be logged in!" };
+        if (!user) res.send(error);
+        else {
+            userModel
+                .updateOne(
+                    { _id: user._id },
+                    {
+                        $push: { data: entry} ,
+                    },
+                    { new: true }
+                )
+                .exec((err, success) => {
+                    if (err) throw err;
+                    res.json(success);
+                });
+        }
     },
     read: () => {},
     update: () => {},
@@ -50,7 +67,7 @@ const auth = {
     },
     login: (req, res) => {
         if (!req.user) res.send("error");
-        res.send(req.user.data);
+        res.send(req.user);
     },
     logout: (req, res, next) => {
         req.logout();

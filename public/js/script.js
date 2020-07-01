@@ -1,8 +1,6 @@
 import { API } from "./api.js";
 import { UTIL } from "./util.js";
 
-let DATA = [];
-
 const site_title = document.getElementById("site-title");
 const search_box = document.getElementById("search-box");
 const table_body = document.getElementById("table-body");
@@ -10,16 +8,19 @@ const button_log_in = document.getElementById("log-in");
 const button_log_out = document.getElementById("log-out");
 const button_new_entry = document.getElementById("button-new-entry");
 
-const modal_window = document.getElementById("modal-login");
-const modal_btn_close = document.getElementById("modal-btn-close");
-const modal_btn_submit = document.getElementById("modal-login-btn-submit");
-const modal_input_username = document.getElementById("modal-input-username");
-const modal_input_password = document.getElementById("modal-input-password");
+const modal_login = document.getElementById("modal-login");
+const modal_login_btn_close = document.getElementById("modal-btn-close");
+const modal_login_btn_submit = document.getElementById("modal-login-btn-submit");
+const modal_login_input_username = document.getElementById("modal-input-username");
+const modal_login_input_password = document.getElementById("modal-input-password");
 
-const modal_new_entry = document.getElementById("modal-new-entry");
-const modal_new_entry_btn_submit = document.getElementById("modal-new-entry-btn-submit");
-const modal_new_entry_btn_close = document.getElementById("modal-new-entry-btn-close");
-let username = "";
+const modal_entry = document.getElementById("modal-new-entry");
+const modal_entry_btn_submit = document.getElementById("modal-new-entry-btn-submit");
+const modal_entry_btn_close = document.getElementById("modal-new-entry-btn-close");
+const modal_entry_label = document.getElementById("modal-new-entry-label");
+const modal_entry_password = document.getElementById("modal-new-entry-password");
+
+let user = {};
 
 const filter_records = (query, data) => {
     if (query === "") return generate_list(data);
@@ -54,7 +55,24 @@ const generate_list = (data) => {
 };
 
 (function init() {
-    button_log_out.style.display = "none";
+    fetch("/api/init")
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            if (data.username) user = data;
+            else user = null;
+            if (user) {
+                console.log("found user logged in");
+                console.log(user);
+                site_title.innerHTML = `${user.username}'s password storage`;
+                button_log_in.style.display = "none";
+                button_log_out.style.display = "";
+                generate_list(user.data);
+            } else {
+                button_log_out.style.display = "none";
+            }
+        })
+        .catch((err) => console.log(err));
 })();
 
 button_log_out.addEventListener("click", () => {
@@ -71,32 +89,36 @@ search_box.addEventListener("input", () => {
     filter_records(search_box.value, DATA);
 });
 button_log_in.addEventListener("click", () => {
-    modal_window.showModal();
+    modal_login.showModal();
 });
-modal_btn_close.addEventListener("click", () => {
-    modal_window.close();
+modal_login_btn_close.addEventListener("click", () => {
+    modal_login.close();
 });
-modal_btn_submit.addEventListener("click", (e) => {
+modal_login_btn_submit.addEventListener("click", (e) => {
     e.preventDefault();
     (async () => {
-        DATA = await API.user.login({
-            username: modal_input_username.value,
-            password: modal_input_password.value,
+        user = await API.user.login({
+            username: modal_login_input_username.value,
+            password: modal_login_input_password.value,
         });
-        generate_list(DATA);
+        console.log(user);
+        generate_list(user.data);
+        button_log_in.style.display = "none";
+        button_log_out.style.display = "";
+        site_title.innerHTML = `${user.username}'s password storage`;
     })();
-    modal_window.close();
-    username = modal_input_username.value;
-    button_log_in.style.display = "none";
-    button_log_out.style.display = "";
-    site_title.innerHTML = `${username}'s password storage`;
+    modal_login.close();
 });
-modal_new_entry_btn_submit.addEventListener("click", () => {
+modal_entry_btn_submit.addEventListener("click", (e) => {
     e.preventDefault();
+    let label = modal_entry_label.value;
+    let password = modal_entry_password.value;
+    let submission = { label, password };
+    API.record.create(submission);
 });
 button_new_entry.addEventListener("click", () => {
-    modal_new_entry.showModal();
+    modal_entry.showModal();
 });
-modal_new_entry_btn_close.addEventListener("click", () => {
-    modal_new_entry.close();
+modal_entry_btn_close.addEventListener("click", () => {
+    modal_entry.close();
 });

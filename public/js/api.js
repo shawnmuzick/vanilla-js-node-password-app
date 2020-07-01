@@ -23,8 +23,15 @@ const user = {
 };
 
 const record = {
-    create: () => {
-        fetch("/api/create")
+    create: (record) => {
+        fetch("/api/record/create", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(record),
+        })
             .then((res) => res.json())
             .then((data) => console.log(data))
             .catch((err) => console.log(err));

@@ -11,6 +11,10 @@ const logger = (req, res, next) => {
     next();
 };
 
+router.get("/init", API_controller.auth.isLoggedIn, (req, res) => {
+    res.send(req.user);
+});
+
 router.post("/record/create", parse_body, parse_json, API_controller.record.create);
 router.get("/record/read", API_controller.record.read);
 router.get("/record/read/:id", API_controller.record.read);
