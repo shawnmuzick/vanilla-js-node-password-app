@@ -41,6 +41,7 @@ const filter_records = (query, data) => {
 };
 
 const generate_list = (data) => {
+    table_body.innerHTML = '';
     data.forEach((element) => {
         let row = UTIL.DOM.row_create();
         table_body.appendChild(row);
@@ -115,6 +116,11 @@ modal_entry_btn_submit.addEventListener("click", (e) => {
     let password = modal_entry_password.value;
     let submission = { label, password };
     API.record.create(submission);
+    const push = {};
+    push[label] = password;
+    user.data.push(push);
+    generate_list(user.data);
+    modal_entry.close();
 });
 button_new_entry.addEventListener("click", () => {
     modal_entry.showModal();
