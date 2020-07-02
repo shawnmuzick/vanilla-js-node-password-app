@@ -41,15 +41,20 @@ const filter_records = (query, data) => {
 };
 
 const generate_list = (data) => {
-    table_body.innerHTML = '';
+    table_body.innerHTML = "";
     data.forEach((element) => {
-        let row = UTIL.DOM.row_create();
+        let { row, button_delete } = UTIL.DOM.row_create();
         table_body.appendChild(row);
         let { item_key, item_value } = UTIL.DOM.row_children_create();
         for (const [key, value] of Object.entries(element)) {
             item_key.innerHTML = key;
             item_value.innerHTML = value;
         }
+        button_delete.setAttribute("id", item_key.innerHTML);
+        button_delete.addEventListener("click", (e) => {
+            e.preventDefault();
+            delete_entry(e);
+        });
         row.appendChild(item_key);
         row.appendChild(item_value);
     });
@@ -128,3 +133,7 @@ button_new_entry.addEventListener("click", () => {
 modal_entry_btn_close.addEventListener("click", () => {
     modal_entry.close();
 });
+const delete_entry = (e) => {
+    console.log(e.target.id);
+    API.record.delete(e.target.id);
+};

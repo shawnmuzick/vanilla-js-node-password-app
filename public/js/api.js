@@ -20,6 +20,10 @@ const user = {
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
     },
+    create:()=>{},
+    read:()=>{},
+    update:()=>{},
+    delete:()=>{}
 };
 
 const record = {
@@ -38,7 +42,12 @@ const record = {
     },
     read: () => {},
     update: () => {},
-    delete: () => {},
+    delete: (record_label) => {
+        fetch(`/api/record/delete/${record_label}`)
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+            .catch((err) => console.log(err));
+    },
 };
 
 export const API = {

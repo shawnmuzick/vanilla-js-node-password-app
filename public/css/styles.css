@@ -47,12 +47,15 @@ nav {
 .table-head,
 .row {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 10% 45% 45%;
     column-gap: 10px;
     padding: 10px;
     border: solid 1px black;
     min-width: 50vw;
     text-align: center;
+}
+dialog .row {
+    grid-template-columns: 50% 50%;
 }
 dialog {
     background-color: var(--ui-grey);
@@ -157,11 +160,22 @@ form {
     justify-content: center;
     align-items: center;
 }
+.button-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    font-weight: bolder;
+    font-size: 1rem;
+}
 .modal-btn-close-container {
     display: flex;
     justify-content: flex-end;
     padding: 5px;
-} 
+}
 form input:focus,
 form input:active {
     color: black !important;

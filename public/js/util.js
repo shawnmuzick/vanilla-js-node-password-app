@@ -1,8 +1,12 @@
 const DOM = {
     row_create: () => {
         let row = document.createElement("div");
+        let button_delete = document.createElement("button");
         row.className = "row";
-        return row;
+        button_delete.className = "button-delete";
+        button_delete.innerHTML = "x";
+        row.appendChild(button_delete);
+        return {row, button_delete};
     },
     row_children_create: () => {
         let item_key = document.createElement("div");

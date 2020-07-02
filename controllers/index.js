@@ -4,8 +4,8 @@ const saltRounds = 10;
 
 const record = {
     create: (req, res) => {
-        const {label, password} = req.body;
-        const entry = {}
+        const { label, password } = req.body;
+        const entry = {};
         entry[label] = password;
         const user = req.user;
         const error = { message: "You must be logged in!" };
@@ -15,7 +15,7 @@ const record = {
                 .updateOne(
                     { _id: user._id },
                     {
-                        $push: { data: entry} ,
+                        $push: { data: entry },
                     },
                     { new: true }
                 )
@@ -27,7 +27,19 @@ const record = {
     },
     read: () => {},
     update: () => {},
-    delete: () => {},
+    delete: (req, res) => {
+        const record_label = req.params.id;
+        const user = req.user;
+        const error = { message: "You must be logged in!" };
+        if (!user) res.send(error);
+        else {
+            userModal.updateOne(
+                { _id: user._id },
+                { $pull: { data: record_label } },
+                { new: true }
+            );
+        }
+    },
 };
 
 const user = {
@@ -50,7 +62,13 @@ const user = {
     },
     read: () => {},
     update: () => {},
-    delete: () => {},
+    delete: (req, res) => {
+        const id = req.params.id;
+        userModel.findByIdAndDelete({ _id: id }).exec((err, success) => {
+            if (err) throw err;
+            res.send(success);
+        });
+    },
 };
 
 const auth = {

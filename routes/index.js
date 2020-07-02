@@ -25,7 +25,7 @@ router.post("/users/create", parse_body, parse_json, API_controller.user.create)
 router.get("/users/read", API_controller.user.read);
 router.get("/users/read/:id", API_controller.user.read);
 router.put("/users/update/:id", parse_body, parse_json, API_controller.user.update);
-router.delete("/users/delete:/id", API_controller.user.delete);
+router.delete("/users/delete/:id", API_controller.user.delete);
 
 router.post(
     "/login",
