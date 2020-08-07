@@ -44,7 +44,7 @@ const generate_list = (data) => {
 	table_body.innerHTML = '';
 	data.forEach((element) => {
 		console.log(element);
-		let { row, button_delete } = UTIL.DOM.row_create();
+		let { row, button_delete, button_edit } = UTIL.DOM.row_create();
 		table_body.appendChild(row);
 		let { item_key, item_value } = UTIL.DOM.row_children_create();
 		item_key.innerHTML = element.label;
@@ -53,6 +53,11 @@ const generate_list = (data) => {
 		button_delete.addEventListener('click', (e) => {
 			e.preventDefault();
 			delete_entry(e);
+		});
+		button_edit.setAttribute('id', item_key.innerHTML);
+		button_edit.addEventListener('click', () => {
+			e.preventDefault();
+			edit_entry(e);
 		});
 		row.appendChild(item_key);
 		row.appendChild(item_value);
@@ -92,12 +97,15 @@ button_log_out.addEventListener('click', () => {
 search_box.addEventListener('input', () => {
 	filter_records(search_box.value, DATA);
 });
+
 button_log_in.addEventListener('click', () => {
 	modal_login.showModal();
 });
+
 modal_login_btn_close.addEventListener('click', () => {
 	modal_login.close();
 });
+
 modal_login_btn_submit.addEventListener('click', (e) => {
 	e.preventDefault();
 	(async () => {
@@ -113,25 +121,32 @@ modal_login_btn_submit.addEventListener('click', (e) => {
 	})();
 	modal_login.close();
 });
+
 modal_entry_btn_submit.addEventListener('click', (e) => {
 	e.preventDefault();
 	let label = modal_entry_label.value;
 	let password = modal_entry_password.value;
 	let submission = { label, password };
 	API.record.create(submission);
-	const push = {};
-	push[label] = password;
-	user.data.push(push);
+	user.data.push(submission);
 	generate_list(user.data);
 	modal_entry.close();
 });
+
 button_new_entry.addEventListener('click', () => {
 	modal_entry.showModal();
 });
+
 modal_entry_btn_close.addEventListener('click', () => {
 	modal_entry.close();
 });
+
 const delete_entry = (e) => {
 	console.log(e.target.id);
 	API.record.delete(e.target.id);
+};
+
+const edit_entry = (e) => {
+	console.log(e.target.id);
+	API.record.update(e.target.id);
 };

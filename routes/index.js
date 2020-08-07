@@ -10,23 +10,23 @@ const logger = (req, res, next) => {
 	next();
 };
 
+router.post('/login', parse_body, parse_json, passport.authenticate('local'), API_controller.auth.login);
+router.get('/logout', API_controller.auth.logout);
+
 router.get('/init', API_controller.auth.isLoggedIn, (req, res) => {
 	res.send(req.user);
 });
 
-router.post('/record/create', parse_body, parse_json, API_controller.record.create);
-router.get('/record/read', API_controller.record.read);
-router.get('/record/read/:id', API_controller.record.read);
-router.put('/record/update/:id', parse_body, parse_json, API_controller.record.update);
-router.delete('/record/delete/:id', logger, API_controller.record.delete);
+router.post('/record/create', parse_body, parse_json, API_controller.auth.isLoggedIn, API_controller.record.create);
+router.get('/record/read', API_controller.auth.isLoggedIn, API_controller.record.read);
+router.get('/record/read/:id', API_controller.auth.isLoggedIn, API_controller.record.read);
+router.put('/record/update/:id', parse_body, parse_json, API_controller.auth.isLoggedIn, API_controller.record.update);
+router.delete('/record/delete/:id', API_controller.auth.isLoggedIn, API_controller.record.delete);
 
-router.post('/users/create', parse_body, parse_json, API_controller.user.create);
-router.get('/users/read', API_controller.user.read);
-router.get('/users/read/:id', API_controller.user.read);
-router.put('/users/update/:id', parse_body, parse_json, API_controller.user.update);
-router.delete('/users/delete/:id', API_controller.user.delete);
-
-router.post('/login', parse_body, parse_json, passport.authenticate('local'), API_controller.auth.login);
-router.get('/logout', API_controller.auth.logout);
+router.post('/users/create', parse_body, parse_json, API_controller.auth.isLoggedIn, API_controller.user.create);
+router.get('/users/read', API_controller.auth.isLoggedIn, API_controller.user.read);
+router.get('/users/read/:id', API_controller.auth.isLoggedIn, API_controller.user.read);
+router.put('/users/update/:id', parse_body, parse_json, API_controller.auth.isLoggedIn, API_controller.user.update);
+router.delete('/users/delete/:id', API_controller.auth.isLoggedIn, API_controller.user.delete);
 
 module.exports = router;

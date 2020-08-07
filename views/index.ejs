@@ -1,122 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Password Storage App</title>
-        <script defer src="/assets/js/script.js" type="module"></script>
-        <link rel="stylesheet" href="/assets/css/styles.css" />
-    </head>
-    <body class="App">
-        <nav id="nav" class="App-header">
-            <div class="site-title">
-                <h1 id="site-title">Password Storage App</h1>
-            </div>
-            <div class="nav-items">
-                <button id="log-in">Log In</button>
-                <button id="log-out">Log Out</button>
-                <button id="profile">Profile</button>
-            </div>
-        </nav>
-        <main>
-            <div class="container">
-                <div class="table-head">
-                    <div class="space"></div>
-                    <div class="col-name">
-                        Name: <input id="search-box" type="text" placeholder="Search By Name" />
-                    </div>
-                    <div class="col-pass">
-                        Password
-                    </div>
-                </div>
-                <div class="table-body" id="table-body"></div>
-            </div>
-        </main>
-        <div class="add-new-container">
-            <button id="button-new-entry" class="add-new-btn">+</button>
-        </div>
-        <dialog id="modal-login">
-            <div class="modal-head">
-                <div class="row">
-                    <div class="item-key">
-                        Log In
-                    </div>
-                    <div class="item-value modal-btn-close-container">
-                        <button id="modal-btn-close">x</button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="item-key">Username:</div>
-                        <div class="item-value">
-                            <input
-                                type="text"
-                                name="username"
-                                id="modal-input-username"
-                                placeholder="Username"
-                            />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="item-key">Password:</div>
-                        <div class="item-value">
-                            <input
-                                type="text"
-                                name="password"
-                                id="modal-input-password"
-                                placeholder="Password"
-                            />
-                        </div>
-                    </div>
-                    <div class="row btn-submit-container">
-                        <button type="submit" id="modal-login-btn-submit">Submit</button>
-                    </div>
-                    <p>Or <a href="/register">Register a new account</a></p>
-                </form>
-            </div>
-        </dialog>
-        <dialog id="modal-new-entry">
-            <div class="modal-head">
-                <div class="row">
-                    <div class="item-key">
-                        Add a new entry
-                    </div>
-                    <div class="item-value modal-btn-close-container">
-                        <button id="modal-new-entry-btn-close">x</button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="item-key">Item Label:</div>
-                        <div class="item-value">
-                            <input
-                                type="text"
-                                name="username"
-                                id="modal-new-entry-label"
-                                placeholder="Username"
-                            />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="item-key">Password:</div>
-                        <div class="item-value">
-                            <input
-                                type="text"
-                                name="password"
-                                id="modal-new-entry-password"
-                                placeholder="Password"
-                            />
-                        </div>
-                    </div>
-                    <div class="row btn-submit-container">
-                        <button type="submit" id="modal-new-entry-btn-submit">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </dialog>
-    </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Password Storage App</title>
+		<script defer src="/assets/js/script.js" type="module"></script>
+		<link rel="stylesheet" href="/assets/css/styles.css" />
+	</head>
+	<body class="App">
+		<nav id="nav" class="App-header">
+			<div class="site-title">
+				<h1 id="site-title">Password Storage App</h1>
+			</div>
+			<div class="nav-items">
+				<button id="log-in">Log In</button>
+				<button id="log-out">Log Out</button>
+				<button id="profile">Profile</button>
+			</div>
+		</nav>
+		<main>
+			<div class="container">
+				<div class="table-head">
+					<div class="space">
+						<button class="button-delete"></button>
+						<button class="button-edit"></button>
+					</div>
+					<div class="col-name">
+						Name: <input id="search-box" type="text" placeholder="Search By Name" />
+					</div>
+					<div class="col-pass">
+						Password
+					</div>
+				</div>
+				<div class="table-body" id="table-body"></div>
+			</div>
+		</main>
+		<div class="add-new-container">
+			<button id="button-new-entry" class="add-new-btn">+</button>
+		</div>
+		<dialog id="modal-login">
+			<div class="modal-head">
+				<div class="row">
+					<div class="item-key">
+						Log In
+					</div>
+					<div class="item-value modal-btn-close-container">
+						<button id="modal-btn-close">x</button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="row">
+						<div class="item-key">Username:</div>
+						<div class="item-value">
+							<input
+								type="text"
+								name="username"
+								id="modal-input-username"
+								placeholder="Username"
+							/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="item-key">Password:</div>
+						<div class="item-value">
+							<input
+								type="text"
+								name="password"
+								id="modal-input-password"
+								placeholder="Password"
+							/>
+						</div>
+					</div>
+					<div class="row btn-submit-container">
+						<button type="submit" id="modal-login-btn-submit">Submit</button>
+					</div>
+					<p>Or <a href="/register">Register a new account</a></p>
+				</form>
+			</div>
+		</dialog>
+		<dialog id="modal-new-entry">
+			<div class="modal-head">
+				<div class="row">
+					<div class="item-key">
+						Add a new entry
+					</div>
+					<div class="item-value modal-btn-close-container">
+						<button id="modal-new-entry-btn-close">x</button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="row">
+						<div class="item-key">Item Label:</div>
+						<div class="item-value">
+							<input
+								type="text"
+								name="username"
+								id="modal-new-entry-label"
+								placeholder="Username"
+							/>
+						</div>
+					</div>
+					<div class="row">
+						<div class="item-key">Password:</div>
+						<div class="item-value">
+							<input
+								type="text"
+								name="password"
+								id="modal-new-entry-password"
+								placeholder="Password"
+							/>
+						</div>
+					</div>
+					<div class="row btn-submit-container">
+						<button type="submit" id="modal-new-entry-btn-submit">Submit</button>
+					</div>
+				</form>
+			</div>
+		</dialog>
+	</body>
 </html>
