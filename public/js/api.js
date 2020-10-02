@@ -42,8 +42,8 @@ const record = {
 	},
 	read: () => {},
 	update: () => {},
-	delete: (record_label) => {
-		fetch(`/api/record/delete/${record_label}`, {
+	delete: async (record_label) => {
+		let arr = await fetch(`/api/record/delete/${record_label}`, {
 			method: 'DELETE',
 			headers: {
 				Accept: 'application/json',
@@ -51,8 +51,12 @@ const record = {
 			},
 		})
 			.then((res) => res.json())
-			.then((data) => console.log(data))
+			.then((data) => {
+				console.log(data.data);
+				return data.data;
+			})
 			.catch((err) => console.log(err));
+		return arr;
 	},
 };
 

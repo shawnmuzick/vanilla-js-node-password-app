@@ -39,7 +39,7 @@ const record = {
 		const record_label = req.params.id;
 		const user = req.user;
 		userModel
-			.updateOne(
+			.findOneAndUpdate(
 				{ _id: user._id },
 				{
 					$pull: {
@@ -52,7 +52,7 @@ const record = {
 			)
 			.exec((err, success) => {
 				if (err) throw err;
-				console.log(success);
+				console.log(success.data);
 				res.json(success);
 			});
 	},
@@ -97,6 +97,7 @@ const auth = {
 		}
 	},
 	login: (req, res) => {
+		console.log('test');
 		if (!req.user) res.send('error');
 		res.send(req.user);
 	},
@@ -106,9 +107,9 @@ const auth = {
 		next();
 	},
 };
-const API_controller = {
+const ApiCtrl = {
 	record,
 	user,
 	auth,
 };
-module.exports = { API_controller };
+module.exports = { ApiCtrl };

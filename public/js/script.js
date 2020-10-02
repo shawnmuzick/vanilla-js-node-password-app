@@ -68,7 +68,6 @@ const generate_list = (data) => {
 	fetch('/api/init')
 		.then((res) => res.json())
 		.then((data) => {
-			console.log(data);
 			if (data.username) user = data;
 			else user = null;
 			if (user) {
@@ -113,7 +112,6 @@ modal_login_btn_submit.addEventListener('click', (e) => {
 			username: modal_login_input_username.value,
 			password: modal_login_input_password.value,
 		});
-		console.log(user);
 		generate_list(user.data);
 		button_log_in.style.display = 'none';
 		button_log_out.style.display = '';
@@ -142,11 +140,12 @@ modal_entry_btn_close.addEventListener('click', () => {
 });
 
 const delete_entry = (e) => {
-	console.log(e.target.id);
-	API.record.delete(e.target.id);
+	(async () => {
+		user.data = await API.record.delete(e.target.id);
+		generate_list(user.data);
+	})();
 };
 
 const edit_entry = (e) => {
-	console.log(e.target.id);
-	API.record.update(e.target.id);
+	user.data = API.record.update(e.target.id);
 };

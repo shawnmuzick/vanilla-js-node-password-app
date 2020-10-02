@@ -1,32 +1,36 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { API_controller } = require('../controllers/');
-const parse_json = express.json();
-const parse_body = express.urlencoded({ extended: true });
+const { ApiCtrl } = require('../controllers/');
+const parseJSON = express.json();
+const parseBody = express.urlencoded({ extended: true });
 
 const logger = (req, res, next) => {
+	console.log(req.body);
 	console.log('request recieved!');
 	next();
 };
 
-router.post('/login', parse_body, parse_json, passport.authenticate('local'), API_controller.auth.login);
-router.get('/logout', API_controller.auth.logout);
-
-router.get('/init', API_controller.auth.isLoggedIn, (req, res) => {
+router.post('/login', parseBody, parseJSON, passport.authenticate('local'), ApiCtrl.auth.login);
+router.get('/logout', ApiCtrl.auth.logout);
+router.get('/init', ApiCtrl.auth.isLoggedIn, (req, res) => {
 	res.send(req.user);
 });
-
-router.post('/record/create', parse_body, parse_json, API_controller.auth.isLoggedIn, API_controller.record.create);
-router.get('/record/read', API_controller.auth.isLoggedIn, API_controller.record.read);
-router.get('/record/read/:id', API_controller.auth.isLoggedIn, API_controller.record.read);
-router.put('/record/update/:id', parse_body, parse_json, API_controller.auth.isLoggedIn, API_controller.record.update);
-router.delete('/record/delete/:id', API_controller.auth.isLoggedIn, API_controller.record.delete);
-
-router.post('/users/create', parse_body, parse_json, API_controller.auth.isLoggedIn, API_controller.user.create);
-router.get('/users/read', API_controller.auth.isLoggedIn, API_controller.user.read);
-router.get('/users/read/:id', API_controller.auth.isLoggedIn, API_controller.user.read);
-router.put('/users/update/:id', parse_body, parse_json, API_controller.auth.isLoggedIn, API_controller.user.update);
-router.delete('/users/delete/:id', API_controller.auth.isLoggedIn, API_controller.user.delete);
+router.post('/record/create', parseBody, parseJSON, ApiCtrl.auth.isLoggedIn, ApiCtrl.record.create);
+router.get('/record/read', ApiCtrl.auth.isLoggedIn, ApiCtrl.record.read);
+router.get('/record/read/:id', ApiCtrl.auth.isLoggedIn, ApiCtrl.record.read);
+router.put(
+	'/record/update/:id',
+	parseBody,
+	parseJSON,
+	ApiCtrl.auth.isLoggedIn,
+	ApiCtrl.record.update
+);
+router.delete('/record/delete/:id', ApiCtrl.auth.isLoggedIn, ApiCtrl.record.delete);
+router.post('/users/create', parseBody, parseJSON, ApiCtrl.auth.isLoggedIn, ApiCtrl.user.create);
+router.get('/users/read', ApiCtrl.auth.isLoggedIn, ApiCtrl.user.read);
+router.get('/users/read/:id', ApiCtrl.auth.isLoggedIn, ApiCtrl.user.read);
+router.put('/users/update/:id', parseBody, parseJSON, ApiCtrl.auth.isLoggedIn, ApiCtrl.user.update);
+router.delete('/users/delete/:id', ApiCtrl.auth.isLoggedIn, ApiCtrl.user.delete);
 
 module.exports = router;
